@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 4</title>
+  <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+	  .directory{
+		  display: inline-block;
+		  margin: 40px;
+	  }
+	  
+	  h5{
+		  padding-bottom: 50px;
+	  }
+	  
+  </style>
+</head>
+
+<body>
+	
+	<div class="directory">
+		<h4>Lab 4: HR Directory</h4>
+		<h5>By: Tiffany Billey</h5>
+		<div id="hrtable">
+			<table class="table table-striped" id="hrdirectory">
+        		<thead>
+          			<tr>
+            			<th>Picture ID</th>
+            			<th>Username</th>
+            			<th>Email</th>
+            			<th>Name</th>
+            			<th>Gender</th>
+            			<th>Phone Number</th>
+						<th>Address</th>
+						<th>Birthday</th>
+						<th>Nationality</th>
+						<th>Registration Date</th>
+          			</tr>
+        		</thead>
+				<tbody></tbody>
+			</table>		
+		</div>
+	</div>
+</body>
+	
+<script>
+	d3.csv("hr-directory.csv", function (data) {
+    	console.log(data);
+		let row ='<tr>';
+		row += '<td><img src="' + data['picture.thumbnail'] + '"></td>'; // picture
+		row += '<td>' + data['login.username'] + '</td>'; //username
+		row += '<td>' + data.email + '</td>'; //email
+		row += '<td>' + data['name.title'] + ' ' + data['name.first'] + ' ' + data['name.last']; //name
+		row += '<td>' + data.gender + '</td>'; //gender
+		row += '<td>' + data.phone + '<br>' + data.cell + '</td>'; //phone number
+		row += '<td>' + data['location.street.number'] + ' ' + data['location.street.name'] + '<br>' + data['location.city'] + ',' + ' ' + data['location.state']  + ' ' + data['location.country'] + ' ' + data['location.postcode'] + '</td>'; //address
+		row += '<td>' + data['dob.date'] + '</td>'; // birthday
+		row += '<td>' + data.nat + '</td>'; // nationality
+		row += '<td>' + data['registered.date'] + '</td>'; // registration Date
+		row += '</tr>';
+		d3.select('#hrdirectory tbody').append('tr').html(row);
+		
+   });
+	
+</script>
+</html>
